@@ -41,7 +41,8 @@ public class Game extends ApplicationAdapter {
         batch.begin();
 
         backgroundManagement.render();
-        playerShip.draw(batch, 1);
+        playerShip.draw(batch, 100);
+        playerShip.getAnimator().render(0, 0);
 
         font.draw(batch, "HELLO WORLD", 150, 400);
         batch.end();

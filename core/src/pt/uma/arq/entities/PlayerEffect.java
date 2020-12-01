@@ -11,7 +11,6 @@ public class PlayerEffect {
     Animator animator;
 
     PlayerEffect(SpriteBatch spriteBatch) {
-
         this.spriteBatch = spriteBatch;
     }
 

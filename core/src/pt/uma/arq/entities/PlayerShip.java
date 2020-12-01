@@ -44,6 +44,7 @@ public class PlayerShip extends Ship {
     public void handleInput() {
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             position.x += SHIP_SPEED * Gdx.graphics.getDeltaTime();
+
             if(position.x + SHIP_WIDTH > Game.WINDOW_WIDTH) {
                 position.x = 0;
             }

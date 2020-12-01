@@ -21,12 +21,9 @@ public class BackgroundManager {
     }
 
     public void render() {
-        sourceY += 2;
+        sourceY = ((sourceY + 2) % texture.getHeight());
         spriteBatch.draw(texture, 0, 0, 0, -sourceY, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
 
-        if(sourceY >= 1000) {
-            sourceY = 0;
-        }
     }
 
 }

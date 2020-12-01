@@ -1,5 +1,6 @@
 package pt.uma.arq.entities.enemies;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import pt.uma.arq.entities.Ship;
@@ -11,8 +12,8 @@ public class MediumShip extends Ship implements EnemyShip {
     }
 
     @Override
-    protected Animator animator(SpriteBatch batch) {
-        return null;
+    protected Animator animator() {
+        return new Animator(batch, "medium-ship.png",2,1);
     }
 
     @Override
@@ -22,6 +23,6 @@ public class MediumShip extends Ship implements EnemyShip {
 
     @Override
     public void render() {
-
+        animator.render((int) position.x, (int) position.y);
     }
 }

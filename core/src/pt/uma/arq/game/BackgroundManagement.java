@@ -6,19 +6,21 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class BackgroundManagement {
 
-    private Texture background;
     private Sprite sprite;
+
     SpriteBatch spriteBatch;
 
     public BackgroundManagement(SpriteBatch batch) {
         this.spriteBatch = batch;
-        background = new Texture("space.png");
-        sprite = new Sprite(background);
+        Texture texture = new Texture("space.png");
+        sprite = new Sprite(texture);
+        sprite.setSize(600, 800);
         sprite.setPosition(0, 0);
+
     }
 
     public void render() {
-        sprite.draw(spriteBatch);
+        spriteBatch.draw(sprite, 0, 0, sprite.getWidth(), sprite.getHeight());
     }
 
 }

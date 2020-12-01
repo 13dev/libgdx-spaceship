@@ -1,13 +1,15 @@
 package pt.uma.arq.entities;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import pt.uma.arq.game.Animator;
 
-public abstract class Ship extends Actor {
+public abstract class Ship {
     protected Animator animator;
+    protected SpriteBatch batch;
     protected Vector2 position;
     protected float powerAttack = 0;
     protected Rectangle boundingBox;
@@ -15,8 +17,10 @@ public abstract class Ship extends Actor {
 
     public Ship(Vector2 position, SpriteBatch batch) {
         this.position = position;
-        this.animator = animator(batch);
+        this.batch = batch;
+        this.animator = animator();
         this.setPowerAttack(baseAttack() + powerAttack);
+        this.animator.create();
     }
 
     public void setPowerAttack(float powerAttack) {
@@ -27,7 +31,7 @@ public abstract class Ship extends Actor {
         return animator;
     }
 
-    protected abstract Animator animator(SpriteBatch batch);
+    protected abstract Animator animator();
     public abstract float baseAttack();
     public abstract void render();
 

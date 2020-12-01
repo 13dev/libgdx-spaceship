@@ -13,12 +13,7 @@ public class PlayerShip extends Ship {
     }
 
     @Override
-    public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
-    }
-
-    @Override
-    protected Animator animator(SpriteBatch batch) {
+    protected Animator animator() {
         return new Animator(batch, "player.png", 1, 1);
     }
 

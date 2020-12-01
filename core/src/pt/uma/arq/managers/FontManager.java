@@ -1,16 +1,16 @@
-package pt.uma.arq.game;
+package pt.uma.arq.managers;
 // Created by 13dev - 01/12/2020
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
-public class FontManagement {
+public class FontManager {
     private final FreeTypeFontGenerator.FreeTypeFontParameter fontParameter;
     private final FreeTypeFontGenerator fontGenerator;
     private final BitmapFont font;
 
-    FontManagement(String fontPath, int fontSize) {
+    public FontManager(String fontPath, int fontSize) {
         fontGenerator = new FreeTypeFontGenerator(
                 Gdx.files.internal(fontPath)
         );

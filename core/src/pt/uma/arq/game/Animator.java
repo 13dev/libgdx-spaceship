@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 
 public class Animator {
 
@@ -16,6 +17,7 @@ public class Animator {
     private SpriteBatch spriteBatch;
     private String path;
     private int width, height;
+    private float duration;
 
     // A variable for tracking elapsed time for the animation
     float stateTime;
@@ -52,17 +54,17 @@ public class Animator {
         }
 
         // Initialize the Animation with the frame interval and array of frames
-        walkAnimation = new Animation<TextureRegion>(0.095f, walkFrames);
+        walkAnimation = new Animation<TextureRegion>(duration, walkFrames);
         // time to 0
         stateTime = 0f;
     }
 
 
-    public void render(int posX, int posY) {
+    public void render(Vector2 pos) {
         stateTime += Gdx.graphics.getDeltaTime(); // Accumulate elapsed animation time
         // Get current frame of animation for the current stateTime
         TextureRegion currentFrame = walkAnimation.getKeyFrame(stateTime, true);
-        spriteBatch.draw(currentFrame, posX, posY); // Draw current frame at (50, 50)
+        spriteBatch.draw(currentFrame, pos.x, pos.y); // Draw current frame at (50, 50)
     }
 
 
@@ -76,5 +78,9 @@ public class Animator {
 
     public int getWidth() {
         return width;
+    }
+
+    public void setDuration(float duration) {
+        this.duration = duration;
     }
 }

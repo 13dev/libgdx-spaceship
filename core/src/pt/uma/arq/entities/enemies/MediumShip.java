@@ -2,19 +2,17 @@ package pt.uma.arq.entities.enemies;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import pt.uma.arq.entities.Ship;
 import pt.uma.arq.game.Animator;
+import pt.uma.arq.managers.TextureAtlasManager;
 
 public class MediumShip extends Ship implements EnemyShip {
     public MediumShip(Vector2 position, SpriteBatch batch) {
         super(position, batch);
     }
 
-    @Override
-    protected Animator animator() {
-        return new Animator(batch, "medium-ship.png",2,1);
-    }
 
     @Override
     public float baseAttack() {
@@ -23,6 +21,13 @@ public class MediumShip extends Ship implements EnemyShip {
 
     @Override
     public void render() {
-        animator.render((int) position.x, (int) position.y);
+        batch.draw(
+                TextureAtlasManager.getRegion("playerShip1_blue.png"),
+                position.x, position.y,
+                SHIP_WIDTH / 2, SHIP_HEIGHT / 2,
+                SHIP_WIDTH, SHIP_HEIGHT,
+                1f, 1f,
+                -180f
+        );
     }
 }

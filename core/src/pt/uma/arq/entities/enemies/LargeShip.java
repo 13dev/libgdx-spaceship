@@ -11,11 +11,12 @@ import pt.uma.arq.managers.TextureAtlasManager;
 import java.util.Random;
 
 public class LargeShip extends Ship implements EnemyShip {
+    private static final int SHIP_LENGHT = 90;
     float elapsedTime = 0f;
     float random;
 
-    public LargeShip(Vector2 position, SpriteBatch batch) {
-        super(position, batch);
+    public LargeShip(Vector2 position) {
+        super(position, SHIP_LENGHT, SHIP_LENGHT);
         random = (float) (Math.random() * 200) + 50f;
     }
 
@@ -25,12 +26,12 @@ public class LargeShip extends Ship implements EnemyShip {
     }
 
     @Override
-    public void render() {
+    public void render(SpriteBatch batch) {
         elapsedTime = (elapsedTime + Gdx.graphics.getDeltaTime()) % 360f;
         batch.draw(TextureAtlasManager.getRegion("ufoRed.png"),
                 position.x, position.y,
-                90 / 2f, 90 / 2f,
-                90, 90,
+                SHIP_LENGHT / 2f, SHIP_LENGHT / 2f,
+                SHIP_LENGHT, SHIP_LENGHT,
                 1f, 1f,
                 elapsedTime * random
         );

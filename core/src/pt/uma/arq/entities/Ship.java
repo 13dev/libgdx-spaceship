@@ -9,22 +9,22 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import pt.uma.arq.game.Animator;
 
-public abstract class Ship {
+public abstract class Ship extends GameObject {
     public static final float SHIP_SPEED = 320;
     public static final float SHIP_WIDTH = 99 / 1.2f;
     public static final float SHIP_HEIGHT = 75 / 1.2f;
 
-
     protected SpriteBatch batch;
-    protected Vector2 position;
     protected float powerAttack = 0;
     protected Rectangle boundingBox;
     protected boolean collided;
 
-    public Ship(Vector2 position, SpriteBatch batch) {
-        this.position = position;
-        this.batch = batch;
+    public Ship(Vector2 position, float width, float height) {
+        super(position, width, height);
         this.setPowerAttack(baseAttack() + powerAttack);
+        setBoundingBox(
+                new Rectangle(position.x, position.y, width, height)
+        );
     }
 
     public void setPowerAttack(float powerAttack) {
@@ -32,15 +32,6 @@ public abstract class Ship {
     }
 
     public abstract float baseAttack();
-    public abstract void render();
-
-    public Vector2 getPosition() {
-        return position;
-    }
-
-    public void setPosition(Vector2 position) {
-        this.position = position;
-    }
 
     public float getPowerAttack() {
         return powerAttack;
@@ -61,5 +52,6 @@ public abstract class Ship {
     public boolean isCollidedWith(Rectangle rectangle) {
         return this.boundingBox.overlaps(rectangle);
     }
+
 
 }

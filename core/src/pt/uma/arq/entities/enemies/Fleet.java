@@ -2,7 +2,6 @@ package pt.uma.arq.entities.enemies;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import pt.uma.arq.entities.PlayerShip;
 import pt.uma.arq.entities.Ship;
 import pt.uma.arq.entities.enemies.EnemyShip.EnemyShipType;
 
@@ -13,18 +12,13 @@ public class Fleet {
     public static final int SHIPS_PER_COLUMN = 3;
     public static final int MARGIN_BETWEEN = 50;
     private final Vector2 position;
-    private final SpriteBatch batch;
-    public ArrayList<Ship> ships;
+    public ArrayList<EnemyShip> ships;
 
-    public Fleet(Vector2 position, SpriteBatch batch) {
+    public Fleet(Vector2 position) {
         this.position = position;
-        this.batch = batch;
         ships = new ArrayList<>();
     }
 
-    public ArrayList<Ship> getShips() {
-        return ships;
-    }
 
     public void create() {
         for (int i = 0; i < SHIPS_PER_COLUMN; i++) {
@@ -37,9 +31,13 @@ public class Fleet {
 
                 EnemyShipType type = EnemyShipType.values()[i % 3];
 
-                ships.add((Ship) EnemyShipFactory.create(type, pos, batch));
+                ships.add(EnemyShipFactory.create(type, pos));
             }
         }
 
+    }
+
+    public void render(SpriteBatch batch) {
+        ships.forEach(ship -> ship.render(batch));
     }
 }

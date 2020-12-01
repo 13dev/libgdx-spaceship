@@ -7,10 +7,9 @@ import pt.uma.arq.managers.TextureAtlasManager;
 
 public class SmallShip extends Ship implements EnemyShip {
 
-    public SmallShip(Vector2 position, SpriteBatch batch) {
-        super(position, batch);
+    public SmallShip(Vector2 position) {
+        super(position, SHIP_WIDTH, SHIP_HEIGHT);
     }
-
 
     @Override
     public float baseAttack() {
@@ -18,7 +17,7 @@ public class SmallShip extends Ship implements EnemyShip {
     }
 
     @Override
-    public void render() {
+    public void render(SpriteBatch batch) {
         batch.draw(
                 TextureAtlasManager.getRegion("playerShip1_green.png"),
                 position.x, position.y,

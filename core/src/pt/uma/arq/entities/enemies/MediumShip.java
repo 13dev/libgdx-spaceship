@@ -6,8 +6,8 @@ import pt.uma.arq.entities.Ship;
 import pt.uma.arq.managers.TextureAtlasManager;
 
 public class MediumShip extends Ship implements EnemyShip {
-    public MediumShip(Vector2 position, SpriteBatch batch) {
-        super(position, batch);
+    public MediumShip(Vector2 position) {
+        super(position, SHIP_WIDTH, SHIP_HEIGHT);
     }
 
     @Override
@@ -16,7 +16,7 @@ public class MediumShip extends Ship implements EnemyShip {
     }
 
     @Override
-    public void render() {
+    public void render(SpriteBatch batch) {
         batch.draw(
                 TextureAtlasManager.getRegion("playerShip1_blue.png"),
                 position.x, position.y,

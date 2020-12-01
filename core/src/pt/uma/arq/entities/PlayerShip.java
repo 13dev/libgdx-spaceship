@@ -14,15 +14,12 @@ public class PlayerShip extends Ship {
     public static final float PLAYER_BASE_ATTACK = 10;
     public static final float SHOOT_WAIT_TIME = 0.3f;
 
-    public PlayerEffect playerEffect;
     private float elapsedTime = 0f;
     private float shootTime = 0f;
     private final Animation shield;
 
-    public PlayerShip(Vector2 position, SpriteBatch batch) {
-        super(position, batch);
-
-        playerEffect = new PlayerEffect(batch);
+    public PlayerShip(Vector2 position) {
+        super(position, SHIP_WIDTH, SHIP_HEIGHT);
         shield = new Animation<TextureRegion>(0.090f, TextureAtlasManager.getRegions("fire"), Animation.PlayMode.LOOP);
     }
 
@@ -32,7 +29,7 @@ public class PlayerShip extends Ship {
     }
 
     @Override
-    public void render() {
+    public void render(SpriteBatch batch) {
         elapsedTime += Gdx.graphics.getDeltaTime();
         shootTime += Gdx.graphics.getDeltaTime();
         batch.draw(TextureAtlasManager.getRegion("playerShip1_red.png"), position.x, position.y, SHIP_WIDTH, SHIP_HEIGHT);

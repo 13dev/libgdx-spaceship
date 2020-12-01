@@ -31,14 +31,13 @@ public class Game extends ApplicationAdapter {
     public void create() {
         batch = new SpriteBatch();
         font = new FontManager("font.ttf", 20).getFont();
-        backgroundManager = new BackgroundManager(batch);
+        backgroundManager = new BackgroundManager();
         playerShip = new PlayerShip(
-                new Vector2(WINDOW_WIDTH / 2.f - PlayerShip.SHIP_WIDTH / 2, 25f),
-                batch
+                new Vector2(WINDOW_WIDTH / 2.f - PlayerShip.SHIP_WIDTH / 2, 25f)
         );
 
         bullets = new ArrayList<>();
-        fleet = new Fleet(new Vector2(60, WINDOW_HEIGHT - Ship.SHIP_HEIGHT * 5 - 20), batch);
+        fleet = new Fleet(new Vector2(60, WINDOW_HEIGHT - Ship.SHIP_HEIGHT * 5 - 20));
         fleet.create();
     }
 
@@ -49,14 +48,12 @@ public class Game extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-        backgroundManager.render();
-        playerShip.render();
         playerShip.handleInput();
-        updateBullets();
 
-        for (Ship i : fleet.getShips()) {
-            i.render();
-        }
+        backgroundManager.render(batch);
+        playerShip.render(batch);
+        fleet.render(batch);
+        updateBullets();
 
         font.draw(batch, "HELLO WORLD", 0, 0);
         batch.end();

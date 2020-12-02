@@ -7,19 +7,22 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import pt.uma.arq.game.Game;
+import pt.uma.arq.managers.AudioManager;
 import pt.uma.arq.managers.TextureAtlasManager;
 
 public class PlayerShip extends Ship {
 
     public static final float PLAYER_BASE_ATTACK = 10;
     public static final float SHOOT_WAIT_TIME = 0.3f;
+    private final AudioManager audioManager;
 
     private float elapsedTime = 0f;
     private float shootTime = 0f;
     private final Animation shield;
 
-    public PlayerShip(Vector2 position) {
+    public PlayerShip(Vector2 position, AudioManager audioManager) {
         super(position, SHIP_WIDTH, SHIP_HEIGHT);
+        this.audioManager = audioManager;
         shield = new Animation<TextureRegion>(0.090f, TextureAtlasManager.getRegions("fire"), Animation.PlayMode.LOOP);
     }
 
@@ -61,7 +64,10 @@ public class PlayerShip extends Ship {
             Bullet bullet = new Bullet(new Vector2(position.x + (SHIP_WIDTH / 2) - 4, position.y + Bullet.DEFAULT_Y));
 
             Game.bullets.add(bullet);
+
+            audioManager.play("shoot", (float)(Math.random() * 3) + 1f);
         }
     }
+
 
 }

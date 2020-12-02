@@ -11,8 +11,8 @@ import pt.uma.arq.managers.TextureAtlasManager;
 public class Bullet extends GameObject {
     public static final int SPEED = 80;
     public static final float DEFAULT_Y = 50;
-    public static final float WIDTH = 8 / 1.3f;
-    public static final float HEIGHT = 43 / 1.3f;
+    public static final float WIDTH = 10f;
+    public static final float HEIGHT = 50f;
 
     private final Animation<TextureRegion> animation;
     private float elapsedTime;

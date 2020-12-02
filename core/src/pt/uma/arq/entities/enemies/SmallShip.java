@@ -7,8 +7,10 @@ import pt.uma.arq.managers.TextureAtlasManager;
 
 public class SmallShip extends Ship implements EnemyShip {
 
+    private final static float WIDTH = SHIP_WIDTH / 1.3f;
+    private final static float HEIGHT = SHIP_HEIGHT / 1.3f;
     public SmallShip(Vector2 position) {
-        super(position, SHIP_WIDTH, SHIP_HEIGHT);
+        super(position, WIDTH, HEIGHT);
     }
 
     @Override
@@ -21,8 +23,8 @@ public class SmallShip extends Ship implements EnemyShip {
         batch.draw(
                 TextureAtlasManager.getRegion("playerShip1_green.png"),
                 position.x, position.y,
-                SHIP_WIDTH / 2, SHIP_HEIGHT / 2,
-                SHIP_WIDTH, SHIP_HEIGHT,
+                WIDTH / 2, WIDTH / 2,
+                WIDTH, HEIGHT,
                 1f, 1f,
                 -180f
         );

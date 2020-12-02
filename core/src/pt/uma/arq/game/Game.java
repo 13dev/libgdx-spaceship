@@ -2,15 +2,18 @@ package pt.uma.arq.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import pt.uma.arq.entities.Bullet;
 import pt.uma.arq.entities.PlayerShip;
 import pt.uma.arq.entities.Ship;
 import pt.uma.arq.entities.enemies.EnemyShip;
 import pt.uma.arq.entities.enemies.Fleet;
+import pt.uma.arq.managers.AudioManager;
 import pt.uma.arq.managers.BackgroundManager;
 import pt.uma.arq.managers.FontManager;
 
@@ -25,6 +28,7 @@ public class Game extends ApplicationAdapter {
     private BitmapFont font;
     private PlayerShip playerShip;
     public static ArrayList<Bullet> bullets;
+    public AudioManager audioManager;
     Fleet fleet;
 
     @Override
@@ -32,12 +36,15 @@ public class Game extends ApplicationAdapter {
         batch = new SpriteBatch();
         font = new FontManager("font.ttf", 20).getFont();
         backgroundManager = new BackgroundManager();
+        audioManager = new AudioManager();
+        audioManager.registerSound("shoot.ogg");
         playerShip = new PlayerShip(
-                new Vector2(WINDOW_WIDTH / 2.f - PlayerShip.SHIP_WIDTH / 2, 25f)
+                new Vector2(WINDOW_WIDTH / 2.f - PlayerShip.SHIP_WIDTH / 2, 25f),
+                audioManager
         );
 
         bullets = new ArrayList<>();
-        fleet = new Fleet(new Vector2(60, WINDOW_HEIGHT - Ship.SHIP_HEIGHT * 5 - 20));
+        fleet = new Fleet(new Vector2(0, WINDOW_HEIGHT - Ship.SHIP_HEIGHT * 5 - 20));
         fleet.create();
     }
 
@@ -47,7 +54,12 @@ public class Game extends ApplicationAdapter {
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+
+
+
         batch.begin();
+
+
         playerShip.handleInput();
 
         backgroundManager.render(batch);

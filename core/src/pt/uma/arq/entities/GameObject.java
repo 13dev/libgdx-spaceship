@@ -34,12 +34,15 @@ public abstract class GameObject {
         this.height = height;
     }
 
-
     public Vector2 getVelocity() {
         return velocity;
     }
 
     public void setVelocity(Vector2 velocity) {
         this.velocity = velocity;
+    }
+
+    public void setPosition(Vector2 position) {
+        this.position = position;
     }
 }

@@ -39,7 +39,7 @@ public class Fleet {
                 //posx += ship.getWidth() / 2;
                 //posx += ship.getWidth();
 
-                float help =Math.abs(MARGIN_BETWEEN * (SHIPS_PER_LINE  - i + 1) );
+                float help = Math.abs(MARGIN_BETWEEN * j);
                 System.out.println(help );
                 ship.setPosition(new Vector2(help + (posx * j),
                         position.y + ship.getHeight() * i

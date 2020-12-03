@@ -14,6 +14,7 @@ import pt.uma.arq.entities.enemies.Fleet;
 import pt.uma.arq.managers.AudioManager;
 import pt.uma.arq.managers.BackgroundManager;
 import pt.uma.arq.managers.FontManager;
+import pt.uma.arq.managers.UIManager;
 
 import java.util.ArrayList;
 
@@ -26,7 +27,9 @@ public class Game extends ApplicationAdapter {
     private BitmapFont font;
     private PlayerShip playerShip;
     public static ArrayList<Bullet> bullets;
-    public AudioManager audioManager;
+    private AudioManager audioManager;
+    private UIManager uiManager;
+
     Fleet fleet;
 
     @Override
@@ -44,6 +47,7 @@ public class Game extends ApplicationAdapter {
         bullets = new ArrayList<>();
         fleet = new Fleet(new Vector2(0, WINDOW_HEIGHT - Ship.SHIP_HEIGHT * 5 - 20));
         fleet.create();
+        uiManager = new UIManager();
     }
 
     @Override
@@ -60,6 +64,7 @@ public class Game extends ApplicationAdapter {
         playerShip.render(batch);
         fleet.render(batch);
         updateBullets();
+        uiManager.renderNumber(batch,1, WINDOW_WIDTH / 2, WINDOW_HEIGHT - 50, 30f);
 
         font.draw(batch, "HELLO WORLD", 0, 0);
         batch.end();

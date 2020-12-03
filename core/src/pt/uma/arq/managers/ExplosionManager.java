@@ -17,6 +17,10 @@ public class ExplosionManager {
         for (Explosion explosion : explosions) {
             explosion.render(batch);
         }
+
+        if(!explosions.isEmpty()) {
+            explosions.removeIf(explosion -> explosion.removable);
+        }
     }
 
 }

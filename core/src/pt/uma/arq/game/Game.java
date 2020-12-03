@@ -40,7 +40,8 @@ public class Game extends ApplicationAdapter {
         audioManager.registerSong("background-music.mp3");
         audioManager.playSong("background-music", true);
         playerShip = new PlayerShip(
-                new Vector2(WINDOW_WIDTH / 2.f - PlayerShip.SHIP_WIDTH / 2, 25f),
+                WINDOW_WIDTH / 2.f - PlayerShip.SHIP_WIDTH / 2,
+                25f,
                 audioManager
         );
         fleet = new Fleet(new Vector2(0, WINDOW_HEIGHT - Ship.SHIP_HEIGHT * 5 - 20));
@@ -70,7 +71,6 @@ public class Game extends ApplicationAdapter {
 
         font.draw(batch, "SCORE:", 30, WINDOW_HEIGHT - 20);
         batch.end();
-
 
 
     }

@@ -21,8 +21,8 @@ public class PlayerShip extends Ship {
     private final Animation fireEffect;
     public static int score;
 
-    public PlayerShip(Vector2 position, AudioManager audioManager) {
-        super(position, SHIP_WIDTH, SHIP_HEIGHT);
+    public PlayerShip(float x, float y, AudioManager audioManager) {
+        super(new Vector2(x, y), SHIP_WIDTH, SHIP_HEIGHT);
         this.audioManager = audioManager;
         score = 0;
         fireEffect = new Animation<TextureRegion>(0.090f, TextureAtlasManager.getRegions("fire"), Animation.PlayMode.LOOP);

@@ -11,6 +11,7 @@ import pt.uma.arq.managers.TextureAtlasManager;
 public class Explosion extends GameObject {
     private final static float WIDTH = 30f;
     private final static float HEIGHT = 30f;
+    public boolean removable;
 
     private final Animation<TextureRegion> animation;
     private float elapsedTime;
@@ -18,6 +19,7 @@ public class Explosion extends GameObject {
     public Explosion(Vector2 position) {
         super(position, WIDTH, HEIGHT);
         animation = new Animation<TextureRegion>(.05f, TextureAtlasManager.getRegions("explosionRed"), Animation.PlayMode.NORMAL);
+        removable = false;
     }
 
     @Override
@@ -32,7 +34,10 @@ public class Explosion extends GameObject {
                     1f, 1f,
                     (float) (Math.random() * 360)
             );
+
+            return;
         }
 
+        removable = true;
     }
 }

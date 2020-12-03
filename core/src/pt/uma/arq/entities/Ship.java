@@ -16,15 +16,10 @@ public abstract class Ship extends GameObject {
 
     protected SpriteBatch batch;
     protected float powerAttack = 0;
-    protected Rectangle boundingBox;
-    protected boolean collided;
 
     public Ship(Vector2 position, float width, float height) {
         super(position, width, height);
-        this.setPowerAttack(baseAttack() + powerAttack);
-        setBoundingBox(
-                new Rectangle(position.x, position.y, width, height)
-        );
+        this.powerAttack = baseAttack() + powerAttack;
     }
 
     public void setPowerAttack(float powerAttack) {
@@ -35,22 +30,6 @@ public abstract class Ship extends GameObject {
 
     public float getPowerAttack() {
         return powerAttack;
-    }
-
-    public Rectangle getBoundingBox() {
-        return boundingBox;
-    }
-
-    public void setBoundingBox(Rectangle boundingBox) {
-        this.boundingBox = boundingBox;
-    }
-
-    public boolean isCollided() {
-        return collided;
-    }
-
-    public boolean isCollidedWith(Rectangle rectangle) {
-        return this.boundingBox.overlaps(rectangle);
     }
 
 

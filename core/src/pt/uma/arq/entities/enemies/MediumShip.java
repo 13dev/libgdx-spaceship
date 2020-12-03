@@ -1,6 +1,8 @@
 package pt.uma.arq.entities.enemies;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import pt.uma.arq.entities.Ship;
 import pt.uma.arq.managers.TextureAtlasManager;
@@ -17,6 +19,7 @@ public class MediumShip extends Ship implements EnemyShip {
 
     @Override
     public void render(SpriteBatch batch) {
+
         batch.draw(
                 TextureAtlasManager.getRegion("playerShip1_blue.png"),
                 position.x, position.y,

@@ -1010,28 +1010,28 @@ laserRed07.png
   orig: 9, 37
   offset: 0, 0
   index: -1
-laserRed08.png
+explosionRed
   rotate: false
   xy: 580, 661
   size: 48, 46
   orig: 48, 46
   offset: 0, 0
   index: -1
-laserRed09.png
+explosionRed
   rotate: false
   xy: 602, 600
   size: 48, 46
   orig: 48, 46
   offset: 0, 0
   index: -1
-laserRed10.png
+explosionRed
   rotate: false
   xy: 738, 650
   size: 37, 36
   orig: 37, 36
   offset: 0, 0
   index: -1
-laserRed11.png
+explosionRed
   rotate: false
   xy: 737, 613
   size: 37, 37

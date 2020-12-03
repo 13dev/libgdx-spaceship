@@ -3,12 +3,18 @@ package pt.uma.arq.entities.enemies;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import pt.uma.arq.entities.Bullet;
+import pt.uma.arq.entities.Explosion;
+import pt.uma.arq.entities.GameObject;
 import pt.uma.arq.entities.Ship;
 import pt.uma.arq.entities.enemies.EnemyShip.EnemyShipType;
+import pt.uma.arq.managers.BulletManager;
+import pt.uma.arq.managers.ExplosionManager;
+
 import java.util.ArrayList;
 
 public class Fleet {
-    public static final int SHIPS_PER_LINE = 4;
+    public static final int SHIPS_PER_LINE = 5;
     public static final int SHIPS_PER_COLUMN = 3;
     public static final int MARGIN_BETWEEN = 15;
     private final Vector2 position;
@@ -48,8 +54,27 @@ public class Fleet {
         }
 
     }
+    public void checkCollisions() {
+        // Check collisions
+        for (Bullet bullet : BulletManager.bullets) {
+            for (EnemyShip enemyShip : ships) {
+                Ship ship = (Ship) enemyShip;
+                if (ship.isCollidedWith(bullet.getBoundingBox()) && !bullet.isRemovable()) {
+
+                    bullet.setRemovable(true);
+                    ExplosionManager.explosions.add(
+                            new Explosion(bullet.getPosition())
+                    );
+
+                    break;
+                }
+            }
+        }
+    }
 
     public void render(SpriteBatch batch) {
+        checkCollisions();
         ships.forEach(ship -> ship.render(batch));
+
     }
 }

@@ -10,11 +10,9 @@ import com.badlogic.gdx.math.Vector2;
 import pt.uma.arq.entities.Bullet;
 import pt.uma.arq.entities.PlayerShip;
 import pt.uma.arq.entities.Ship;
+import pt.uma.arq.entities.enemies.EnemyShip;
 import pt.uma.arq.entities.enemies.Fleet;
-import pt.uma.arq.managers.AudioManager;
-import pt.uma.arq.managers.BackgroundManager;
-import pt.uma.arq.managers.FontManager;
-import pt.uma.arq.managers.UIManager;
+import pt.uma.arq.managers.*;
 
 import java.util.ArrayList;
 
@@ -26,7 +24,6 @@ public class Game extends ApplicationAdapter {
     private BackgroundManager backgroundManager;
     private BitmapFont font;
     private PlayerShip playerShip;
-    public static ArrayList<Bullet> bullets;
     private AudioManager audioManager;
     private UIManager uiManager;
 
@@ -35,7 +32,7 @@ public class Game extends ApplicationAdapter {
     @Override
     public void create() {
         batch = new SpriteBatch();
-        font = new FontManager("font.ttf", 20).getFont();
+        font = new FontManager("font.ttf", 30).getFont();
         backgroundManager = new BackgroundManager();
         audioManager = new AudioManager();
         audioManager.registerSound("shoot.ogg");
@@ -43,8 +40,6 @@ public class Game extends ApplicationAdapter {
                 new Vector2(WINDOW_WIDTH / 2.f - PlayerShip.SHIP_WIDTH / 2, 25f),
                 audioManager
         );
-
-        bullets = new ArrayList<>();
         fleet = new Fleet(new Vector2(0, WINDOW_HEIGHT - Ship.SHIP_HEIGHT * 5 - 20));
         fleet.create();
         uiManager = new UIManager();
@@ -56,30 +51,26 @@ public class Game extends ApplicationAdapter {
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+
         batch.begin();
 
-        playerShip.handleInput();
-
+        playerShip.update();
         backgroundManager.render(batch);
         playerShip.render(batch);
         fleet.render(batch);
-        updateBullets();
-        uiManager.renderNumber(batch, playerShip.getScore(), 30, WINDOW_HEIGHT - 50, 30f);
+        BulletManager.render(batch);
+        ExplosionManager.render(batch);
 
-        font.draw(batch, "HELLO WORLD", 0, 0);
+
+        uiManager.renderNumber(batch, playerShip.getScore(), 138, WINDOW_HEIGHT - 15, 25f);
+
+        font.draw(batch, "SCORE:", 30, WINDOW_HEIGHT - 20);
         batch.end();
+
+
+
     }
 
-    public void updateBullets() {
-        for (Bullet bullet : bullets) {
-            bullet.update();
-            bullet.render(batch);
-        }
-
-        if(!bullets.isEmpty()) {
-            bullets.removeIf(Bullet::isRemovable);
-        }
-    }
 
     @Override
     public void dispose() {

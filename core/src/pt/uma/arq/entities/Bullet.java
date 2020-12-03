@@ -31,6 +31,9 @@ public class Bullet extends GameObject {
 
     public void update() {
         position.y += SPEED * elapsedTime;
+        setBoundingBoxY(position.y);
+        setBoundingBoxX(position.x);
+
         if (position.y > Gdx.graphics.getHeight() + HEIGHT) {
             removable = true;
         }
@@ -38,5 +41,9 @@ public class Bullet extends GameObject {
 
     public boolean isRemovable() {
         return removable;
+    }
+
+    public void setRemovable(boolean removable) {
+        this.removable = removable;
     }
 }

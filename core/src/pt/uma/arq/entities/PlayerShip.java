@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import pt.uma.arq.game.Game;
 import pt.uma.arq.managers.AudioManager;
+import pt.uma.arq.managers.BulletManager;
 import pt.uma.arq.managers.TextureAtlasManager;
 
 public class PlayerShip extends Ship {
@@ -17,14 +18,14 @@ public class PlayerShip extends Ship {
     private final AudioManager audioManager;
     private float elapsedTime = 0f;
     private float shootTime = 0f;
-    private final Animation shield;
-    private int score;
+    private final Animation fireEffect;
+    private static int score;
 
     public PlayerShip(Vector2 position, AudioManager audioManager) {
         super(position, SHIP_WIDTH, SHIP_HEIGHT);
         this.audioManager = audioManager;
         score = 0;
-        shield = new Animation<TextureRegion>(0.090f, TextureAtlasManager.getRegions("fire"), Animation.PlayMode.LOOP);
+        fireEffect = new Animation<TextureRegion>(0.090f, TextureAtlasManager.getRegions("fire"), Animation.PlayMode.LOOP);
     }
 
     @Override
@@ -37,9 +38,14 @@ public class PlayerShip extends Ship {
         elapsedTime += Gdx.graphics.getDeltaTime();
         shootTime += Gdx.graphics.getDeltaTime();
         batch.draw(TextureAtlasManager.getRegion("playerShip1_red.png"), position.x, position.y, SHIP_WIDTH, SHIP_HEIGHT);
-        batch.draw((TextureRegion) shield.getKeyFrame(elapsedTime, true), position.x + 16, position.y - 18);
-        batch.draw((TextureRegion) shield.getKeyFrame(elapsedTime, true), position.x + 55, position.y - 18);
 
+        batch.draw((TextureRegion) fireEffect.getKeyFrame(elapsedTime, true), position.x + 16, position.y - 18);
+        batch.draw((TextureRegion) fireEffect.getKeyFrame(elapsedTime, true), position.x + 55, position.y - 18);
+
+    }
+
+    public void update() {
+        handleInput();
     }
 
     public void handleInput() {
@@ -64,7 +70,7 @@ public class PlayerShip extends Ship {
 
             Bullet bullet = new Bullet(new Vector2(position.x + (SHIP_WIDTH / 2) - 4, position.y + Bullet.DEFAULT_Y));
 
-            Game.bullets.add(bullet);
+            BulletManager.bullets.add(bullet);
 
             audioManager.play("shoot", (float)(Math.random() * 3) + 1f);
         }

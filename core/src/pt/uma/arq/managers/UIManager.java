@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.HashMap;
 import java.util.Stack;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class UIManager {
     protected HashMap<String, TextureRegion> textureRegionHashMap;
@@ -44,7 +43,7 @@ public class UIManager {
             String key = String.valueOf(digit).toUpperCase();
 
             // calc new position
-            Vector2 pos = new Vector2(x + ((width + 2) * counter++), y);
+            Vector2 pos = new Vector2(x + ((width + 2) * counter++), y - width);
 
             // render it
             render(textureRegionHashMap.get(key), batch, pos, width);

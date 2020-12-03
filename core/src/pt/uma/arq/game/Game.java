@@ -53,12 +53,12 @@ public class Game extends ApplicationAdapter {
 
 
         batch.begin();
-
         playerShip.update();
         backgroundManager.render(batch);
+        LaserManager.render(batch);
         playerShip.render(batch);
         fleet.render(batch);
-        LaserManager.render(batch);
+
         ExplosionManager.render(batch);
 
 

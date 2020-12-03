@@ -9,7 +9,6 @@ import com.badlogic.gdx.math.Vector2;
 import pt.uma.arq.entities.core.Ship;
 import pt.uma.arq.game.Game;
 import pt.uma.arq.managers.AudioManager;
-import pt.uma.arq.managers.LaserManager;
 import pt.uma.arq.managers.TextureAtlasManager;
 
 public class PlayerShip extends Ship {
@@ -33,6 +32,8 @@ public class PlayerShip extends Ship {
     public float baseAttack() {
         return PLAYER_BASE_ATTACK;
     }
+
+
 
     @Override
     public void render(SpriteBatch batch) {
@@ -68,11 +69,7 @@ public class PlayerShip extends Ship {
 
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && shootTime >= SHOOT_WAIT_TIME) {
             shootTime = 0;
-
-            Laser laser = new Laser(new Vector2(position.x + (SHIP_WIDTH / 2) - 4, position.y + Laser.DEFAULT_Y));
-
-            LaserManager.lasers.add(laser);
-
+            fire(Laser.LaserOwnerType.PLAYER);
             audioManager.play("shoot", (float)(Math.random() * 3) + 1f);
         }
     }

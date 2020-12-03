@@ -3,10 +3,11 @@ package pt.uma.arq.entities.enemies;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import pt.uma.arq.entities.*;
+import pt.uma.arq.entities.Laser;
+import pt.uma.arq.entities.core.Ship;
 import pt.uma.arq.entities.enemies.EnemyShip.EnemyShipType;
+import pt.uma.arq.game.CollisionHandler;
 import pt.uma.arq.managers.LaserManager;
-import pt.uma.arq.managers.ExplosionManager;
 
 import java.util.ArrayList;
 
@@ -19,6 +20,8 @@ public class Fleet {
     private final Vector2 position;
     public ArrayList<EnemyShip> ships;
     private static final int MARGIN = 20;
+    private float elepsedTime;
+    private float enemyShootInterval;
 
     public Fleet(Vector2 position) {
         this.position = position;
@@ -26,6 +29,8 @@ public class Fleet {
         largeShipNum = 4;
         mediumShipNum = 5;
         smallShipNum = 7;
+        elepsedTime = 0;
+        enemyShootInterval = 2f;
     }
 
 
@@ -66,23 +71,40 @@ public class Fleet {
     }
 
     public void checkCollisions() {
-        // Check collisions
-        for (Laser laser : LaserManager.lasers) {
-            for (EnemyShip enemyShip : ships) {
-                if (enemyShip.isCollidedWith(laser.getBoundingBox()) && !laser.isRemovable()) {
-                    laser.setRemovable(true);
-                    ExplosionManager.explosions.add(
-                            new Explosion(laser.getPosition())
-                    );
-                    PlayerShip.score += 1;
-                    break;
-                }
-            }
-        }
+        LaserManager.lasers.forEach(laser ->
+                ships.forEach(ship ->
+                        CollisionHandler.laserAndEnemyShip(laser, (Ship) ship)
+                )
+        );
+
+//       CollisionManager.CheckCollisionFunction<Laser, Ship> laserAndShipLambda = (laser, ship) -> {
+//            if(!laser.isRemovable()) {
+//                laser.setRemovable(true);
+//                ExplosionManager.explosions.add(
+//                        new Explosion(laser.getPosition())
+//                );
+//                PlayerShip.score += 1;
+//            }
+//        };
+//
+//        CollisionManager.dynamicCollision(LaserManager.lasers, ships, laserAndShipLambda);
+
+
     }
 
     public void render(SpriteBatch batch) {
+        elepsedTime += Gdx.graphics.getDeltaTime();
         checkCollisions();
+
+        if(elepsedTime >= enemyShootInterval) {
+            Ship ship = (Ship) ships.get(
+                    (int) (Math.random() * ships.size())
+            );
+            ship.fire(Laser.LaserOwnerType.ENEMY);
+
+            elepsedTime = 0;
+        }
+
         ships.forEach(ship -> ship.render(batch));
 
     }

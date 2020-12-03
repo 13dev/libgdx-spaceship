@@ -10,7 +10,12 @@ import pt.uma.arq.entities.core.GameObject;
 import pt.uma.arq.managers.TextureAtlasManager;
 
 public class Laser extends GameObject {
-    public static final int SPEED = 80;
+    public enum LaserOwnerType {
+        PLAYER,
+        ENEMY
+    }
+
+    public static final int SPEED = 10;
     public static final float DEFAULT_Y = 50;
     public static final float WIDTH = 10f;
     public static final float HEIGHT = 50f;
@@ -18,11 +23,13 @@ public class Laser extends GameObject {
     private final Animation<TextureRegion> animation;
     private float elapsedTime;
     private boolean removable;
+    private LaserOwnerType owner;
 
     public Laser(Vector2 position) {
         super(position, WIDTH, HEIGHT);
         animation = new Animation<TextureRegion>(.1f, TextureAtlasManager.getRegions("laserRed"), Animation.PlayMode.NORMAL);
         removable = false;
+        owner = LaserOwnerType.PLAYER;
     }
 
     public void render(SpriteBatch batch) {
@@ -34,11 +41,20 @@ public class Laser extends GameObject {
     }
 
     public void update() {
-        position.y += SPEED * elapsedTime;
+
+        switch (owner) {
+            case ENEMY -> position.y -= SPEED * elapsedTime;
+            case PLAYER -> position.y += SPEED * elapsedTime;
+        }
+
         setBoundingBoxY(position.y);
         setBoundingBoxX(position.x);
 
         if (position.y > Gdx.graphics.getHeight() + HEIGHT) {
+            removable = true;
+        }
+
+        if(position.y < 0) {
             removable = true;
         }
     }
@@ -49,5 +65,13 @@ public class Laser extends GameObject {
 
     public void setRemovable(boolean removable) {
         this.removable = removable;
+    }
+
+    public void setOwner(LaserOwnerType owner) {
+        this.owner = owner;
+    }
+
+    public boolean isOwner(LaserOwnerType type) {
+        return owner == type;
     }
 }

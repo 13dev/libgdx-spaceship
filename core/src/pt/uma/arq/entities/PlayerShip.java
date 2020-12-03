@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import pt.uma.arq.game.Game;
 import pt.uma.arq.managers.AudioManager;
-import pt.uma.arq.managers.BulletManager;
+import pt.uma.arq.managers.LaserManager;
 import pt.uma.arq.managers.TextureAtlasManager;
 
 public class PlayerShip extends Ship {
@@ -68,9 +68,9 @@ public class PlayerShip extends Ship {
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && shootTime >= SHOOT_WAIT_TIME) {
             shootTime = 0;
 
-            Bullet bullet = new Bullet(new Vector2(position.x + (SHIP_WIDTH / 2) - 4, position.y + Bullet.DEFAULT_Y));
+            Laser laser = new Laser(new Vector2(position.x + (SHIP_WIDTH / 2) - 4, position.y + Laser.DEFAULT_Y));
 
-            BulletManager.bullets.add(bullet);
+            LaserManager.lasers.add(laser);
 
             audioManager.play("shoot", (float)(Math.random() * 3) + 1f);
         }

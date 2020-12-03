@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import pt.uma.arq.entities.*;
 import pt.uma.arq.entities.enemies.EnemyShip.EnemyShipType;
-import pt.uma.arq.managers.BulletManager;
+import pt.uma.arq.managers.LaserManager;
 import pt.uma.arq.managers.ExplosionManager;
 
 import java.util.ArrayList;
@@ -52,14 +52,14 @@ public class Fleet {
     }
     public void checkCollisions() {
         // Check collisions
-        for (Bullet bullet : BulletManager.bullets) {
+        for (Laser laser : LaserManager.lasers) {
             for (EnemyShip enemyShip : ships) {
                 Ship ship = (Ship) enemyShip;
-                if (ship.isCollidedWith(bullet.getBoundingBox()) && !bullet.isRemovable()) {
+                if (ship.isCollidedWith(laser.getBoundingBox()) && !laser.isRemovable()) {
 
-                    bullet.setRemovable(true);
+                    laser.setRemovable(true);
                     ExplosionManager.explosions.add(
-                            new Explosion(bullet.getPosition())
+                            new Explosion(laser.getPosition())
                     );
                     PlayerShip.score += 1;
                     break;

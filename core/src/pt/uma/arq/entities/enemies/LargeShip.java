@@ -1,14 +1,10 @@
 package pt.uma.arq.entities.enemies;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import pt.uma.arq.entities.Ship;
-import pt.uma.arq.game.Animator;
 import pt.uma.arq.managers.TextureAtlasManager;
-
-import java.util.Random;
 
 public class LargeShip extends Ship implements EnemyShip {
     private static final int SHIP_LENGHT = 90;

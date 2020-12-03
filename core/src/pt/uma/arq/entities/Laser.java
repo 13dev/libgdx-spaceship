@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import pt.uma.arq.managers.TextureAtlasManager;
 
-public class Bullet extends GameObject {
+public class Laser extends GameObject {
     public static final int SPEED = 80;
     public static final float DEFAULT_Y = 50;
     public static final float WIDTH = 10f;
@@ -18,7 +18,7 @@ public class Bullet extends GameObject {
     private float elapsedTime;
     private boolean removable;
 
-    public Bullet(Vector2 position) {
+    public Laser(Vector2 position) {
         super(position, WIDTH, HEIGHT);
         animation = new Animation<TextureRegion>(.1f, TextureAtlasManager.getRegions("laserRed"), Animation.PlayMode.NORMAL);
         removable = false;

@@ -15,14 +15,15 @@ public class PlayerShip extends Ship {
     public static final float PLAYER_BASE_ATTACK = 10;
     public static final float SHOOT_WAIT_TIME = 0.3f;
     private final AudioManager audioManager;
-
     private float elapsedTime = 0f;
     private float shootTime = 0f;
     private final Animation shield;
+    private int score;
 
     public PlayerShip(Vector2 position, AudioManager audioManager) {
         super(position, SHIP_WIDTH, SHIP_HEIGHT);
         this.audioManager = audioManager;
+        score = 0;
         shield = new Animation<TextureRegion>(0.090f, TextureAtlasManager.getRegions("fire"), Animation.PlayMode.LOOP);
     }
 
@@ -69,5 +70,11 @@ public class PlayerShip extends Ship {
         }
     }
 
+    public int getScore() {
+        return score;
+    }
 
+    public void incrementScore(int score) {
+        this.score += score;
+    }
 }

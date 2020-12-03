@@ -64,7 +64,7 @@ public class Game extends ApplicationAdapter {
         playerShip.render(batch);
         fleet.render(batch);
         updateBullets();
-        uiManager.renderNumber(batch,1, WINDOW_WIDTH / 2, WINDOW_HEIGHT - 50, 30f);
+        uiManager.renderNumber(batch, playerShip.getScore(), 30, WINDOW_HEIGHT - 50, 30f);
 
         font.draw(batch, "HELLO WORLD", 0, 0);
         batch.end();

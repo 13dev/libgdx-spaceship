@@ -36,7 +36,7 @@ public class UIManager {
         Stack<Integer> digits = getDigits(value);
         int counter = 0;
 
-        while(!digits.empty()) {
+        while (!digits.empty()) {
             // get top and pop it
             int digit = digits.pop();
 
@@ -54,10 +54,16 @@ public class UIManager {
 
     private Stack<Integer> getDigits(int num) {
         Stack<Integer> digits = new Stack<>();
-        while ( num > 0 ) {
+
+        if(num == 0) {
+            digits.push(0);
+        }
+
+        while (num > 0) {
             digits.push(num % 10);
             num /= 10;
         }
+
         return digits;
     }
 

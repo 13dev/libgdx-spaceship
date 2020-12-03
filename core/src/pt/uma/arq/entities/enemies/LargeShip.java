@@ -7,7 +7,7 @@ import pt.uma.arq.entities.Ship;
 import pt.uma.arq.managers.TextureAtlasManager;
 
 public class LargeShip extends Ship implements EnemyShip {
-    private static final int SHIP_LENGHT = 90;
+    public static final int SHIP_LENGHT = 90;
     float elapsedTime = 0f;
     float random;
 

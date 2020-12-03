@@ -39,7 +39,7 @@ public class Game extends ApplicationAdapter {
                 25f,
                 audioManager
         );
-        fleet = new Fleet(new Vector2(0, WINDOW_HEIGHT - Ship.SHIP_HEIGHT * 5 - 20));
+        fleet = new Fleet(new Vector2(5, WINDOW_HEIGHT - Ship.SHIP_HEIGHT * 3));
         fleet.create();
         uiManager = new UIManager();
 

@@ -9,8 +9,8 @@ import pt.uma.arq.managers.TextureAtlasManager;
 
 public class SmallShip extends Ship implements EnemyShip {
 
-    private final static float WIDTH = SHIP_WIDTH / 1.3f;
-    private final static float HEIGHT = SHIP_HEIGHT / 1.3f;
+    public final static float WIDTH = SHIP_WIDTH / 1.3f;
+    public final static float HEIGHT = SHIP_HEIGHT / 1.3f;
 
     public SmallShip(Vector2 position) {
         super(position, WIDTH, HEIGHT);

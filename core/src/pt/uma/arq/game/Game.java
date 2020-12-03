@@ -35,8 +35,10 @@ public class Game extends ApplicationAdapter {
         font = new FontManager("font.ttf", 30).getFont();
         backgroundManager = new BackgroundManager();
         audioManager = new AudioManager();
+        audioManager.setMusicVolume(0.4f);
         audioManager.registerSound("shoot.ogg");
         audioManager.registerSong("background-music.mp3");
+        audioManager.playSong("background-music", true);
         playerShip = new PlayerShip(
                 new Vector2(WINDOW_WIDTH / 2.f - PlayerShip.SHIP_WIDTH / 2, 25f),
                 audioManager
@@ -44,8 +46,7 @@ public class Game extends ApplicationAdapter {
         fleet = new Fleet(new Vector2(0, WINDOW_HEIGHT - Ship.SHIP_HEIGHT * 5 - 20));
         fleet.create();
         uiManager = new UIManager();
-        audioManager.setMusicVolume(0.4f);
-        audioManager.playSong("background-music", true);
+
     }
 
     @Override

@@ -26,7 +26,10 @@ public class Bullet extends GameObject {
 
     public void render(SpriteBatch batch) {
         elapsedTime += Gdx.graphics.getDeltaTime();
-        batch.draw(animation.getKeyFrame(elapsedTime, false), position.x, position.y, WIDTH, HEIGHT);
+        if(!isRemovable()) {
+            batch.draw(animation.getKeyFrame(elapsedTime, false), position.x, position.y, WIDTH, HEIGHT);
+        }
+
     }
 
     public void update() {

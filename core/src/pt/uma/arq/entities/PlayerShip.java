@@ -19,7 +19,7 @@ public class PlayerShip extends Ship {
     private float elapsedTime = 0f;
     private float shootTime = 0f;
     private final Animation fireEffect;
-    private static int score;
+    public static int score;
 
     public PlayerShip(Vector2 position, AudioManager audioManager) {
         super(position, SHIP_WIDTH, SHIP_HEIGHT);
@@ -76,7 +76,7 @@ public class PlayerShip extends Ship {
         }
     }
 
-    public int getScore() {
+    public static int getScore() {
         return score;
     }
 

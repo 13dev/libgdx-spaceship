@@ -3,10 +3,7 @@ package pt.uma.arq.entities.enemies;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import pt.uma.arq.entities.Bullet;
-import pt.uma.arq.entities.Explosion;
-import pt.uma.arq.entities.GameObject;
-import pt.uma.arq.entities.Ship;
+import pt.uma.arq.entities.*;
 import pt.uma.arq.entities.enemies.EnemyShip.EnemyShipType;
 import pt.uma.arq.managers.BulletManager;
 import pt.uma.arq.managers.ExplosionManager;
@@ -44,7 +41,6 @@ public class Fleet {
                 //posx += ship.getWidth();
 
                 float help = Math.abs(MARGIN_BETWEEN * j);
-                System.out.println(help );
                 ship.setPosition(new Vector2(help + (posx * j),
                         position.y + ship.getHeight() * i
                 ));
@@ -65,7 +61,7 @@ public class Fleet {
                     ExplosionManager.explosions.add(
                             new Explosion(bullet.getPosition())
                     );
-
+                    PlayerShip.score += 1;
                     break;
                 }
             }

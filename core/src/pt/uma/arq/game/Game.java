@@ -36,6 +36,7 @@ public class Game extends ApplicationAdapter {
         backgroundManager = new BackgroundManager();
         audioManager = new AudioManager();
         audioManager.registerSound("shoot.ogg");
+        audioManager.registerSong("background-music.mp3");
         playerShip = new PlayerShip(
                 new Vector2(WINDOW_WIDTH / 2.f - PlayerShip.SHIP_WIDTH / 2, 25f),
                 audioManager
@@ -43,6 +44,8 @@ public class Game extends ApplicationAdapter {
         fleet = new Fleet(new Vector2(0, WINDOW_HEIGHT - Ship.SHIP_HEIGHT * 5 - 20));
         fleet.create();
         uiManager = new UIManager();
+        audioManager.setMusicVolume(0.4f);
+        audioManager.playSong("background-music", true);
     }
 
     @Override

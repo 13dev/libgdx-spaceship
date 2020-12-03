@@ -1,10 +1,8 @@
 package pt.uma.arq.entities.enemies;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import pt.uma.arq.entities.Ship;
+import pt.uma.arq.entities.core.Ship;
 import pt.uma.arq.managers.TextureAtlasManager;
 
 public class SmallShip extends Ship implements EnemyShip {

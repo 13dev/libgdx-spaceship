@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import pt.uma.arq.entities.PlayerShip;
-import pt.uma.arq.entities.Ship;
+import pt.uma.arq.entities.core.Ship;
 import pt.uma.arq.entities.enemies.Fleet;
 import pt.uma.arq.managers.*;
 

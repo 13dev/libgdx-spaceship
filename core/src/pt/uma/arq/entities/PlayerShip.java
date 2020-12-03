@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import pt.uma.arq.entities.core.Ship;
 import pt.uma.arq.game.Game;
 import pt.uma.arq.managers.AudioManager;
 import pt.uma.arq.managers.LaserManager;

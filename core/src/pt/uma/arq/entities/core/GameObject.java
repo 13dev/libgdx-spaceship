@@ -1,17 +1,17 @@
-package pt.uma.arq.entities;
+package pt.uma.arq.entities.core;
 // Created by 13dev - 01/12/2020
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import pt.uma.arq.entities.Collidable;
 
-public abstract class GameObject {
+public abstract class GameObject implements Collidable {
     private float width;
     private float height;
     protected Vector2 position;
     protected Vector2 velocity;
     protected Rectangle boundingBox;
-    protected boolean collided;
 
     public abstract void render(SpriteBatch batch);
 
@@ -66,10 +66,6 @@ public abstract class GameObject {
 
     public void setBoundingBoxY(float y) {
         this.boundingBox.y = y;
-    }
-
-    public boolean isCollided() {
-        return collided;
     }
 
     public boolean isCollidedWith(Rectangle rectangle) {

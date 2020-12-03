@@ -29,24 +29,20 @@ public class Fleet {
     }
 
 
-    private float calcPositionX(float index, float atualPosition, float shipWidth, int margin)
-    {
-        return atualPosition + (shipWidth + margin) * index;
-    }
-
     public void create() {
 
         for (int i = 0; i < largeShipNum; i++) {
             Vector2 newPosition = new Vector2(
-                    calcPositionX(i + .3f, position.x, LargeShip.SHIP_LENGHT, 50),
+                    calcPositionX(i + .3f, LargeShip.SHIP_LENGHT, 50),
                     position.y
             );
+
             ships.add(EnemyShipFactory.create(EnemyShipType.LARGE, newPosition));
         }
 
         for (int i = 0; i < mediumShipNum; i++) {
             Vector2 newPosition = new Vector2(
-                    calcPositionX(i + .5f, position.x, MediumShip.SHIP_WIDTH, 20),
+                    calcPositionX(i + .5f, MediumShip.SHIP_WIDTH, 20),
                     position.y - 50 - MediumShip.SHIP_HEIGHT
             );
 
@@ -54,44 +50,26 @@ public class Fleet {
         }
 
         for (int i = 0; i < smallShipNum; i++) {
-
             Vector2 newPosition = new Vector2(
-                    calcPositionX(i + .15f, position.x, SmallShip.WIDTH + 10, 10),
+                    calcPositionX(i + .15f, SmallShip.WIDTH + 10, 10),
                     position.y - 100 - LargeShip.SHIP_LENGHT
             );
+
             ships.add(EnemyShipFactory.create(EnemyShipType.SMALL, newPosition));
         }
 
-//        for (int j = 0; j < SHIPS_PER_LINE; j++) {
-//
-//
-//            float posx = (float) Gdx.graphics.getWidth() / 4;
-//            posx /= 2;
-//            float posxx = (posx - (ship.getWidth() / 2));
-//            posx = posxx + ship.getWidth() + posxx;
-//
-//            //posx += MARGIN_BETWEEN * 2;
-//            //posx += ship.getWidth() / 2;
-//            //posx += ship.getWidth();
-//
-//            float help = Math.abs(MARGIN_BETWEEN * j);
-//            ship.setPosition(new Vector2(help + (posx * j),
-//                    position.y + ship.getHeight() * i
-//            ));
-//
-//            ships.add((EnemyShip) ship);
-//        }
 
+    }
 
+    private float calcPositionX(float index, float shipWidth, int margin) {
+        return position.x + (shipWidth + margin) * index;
     }
 
     public void checkCollisions() {
         // Check collisions
         for (Laser laser : LaserManager.lasers) {
             for (EnemyShip enemyShip : ships) {
-                Ship ship = (Ship) enemyShip;
-                if (ship.isCollidedWith(laser.getBoundingBox()) && !laser.isRemovable()) {
-
+                if (enemyShip.isCollidedWith(laser.getBoundingBox()) && !laser.isRemovable()) {
                     laser.setRemovable(true);
                     ExplosionManager.explosions.add(
                             new Explosion(laser.getPosition())

@@ -13,6 +13,7 @@ public abstract class GameObject implements Collidable {
     protected Vector2 velocity;
     protected Rectangle boundingBox;
 
+
     public abstract void render(SpriteBatch batch);
 
     public GameObject(Vector2 position, float width, float height) {

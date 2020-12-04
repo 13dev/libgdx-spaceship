@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import pt.uma.arq.entities.core.Ship;
+import pt.uma.arq.entities.core.Utils;
 import pt.uma.arq.managers.TextureAtlasManager;
 
 public class LargeShip extends Ship implements EnemyShip {
@@ -13,12 +14,7 @@ public class LargeShip extends Ship implements EnemyShip {
 
     public LargeShip(Vector2 position) {
         super(position, SHIP_LENGHT, SHIP_LENGHT);
-        random = (float) (Math.random() * 200) + 50f;
-    }
-
-    @Override
-    public float baseAttack() {
-        return 0;
+        random = Utils.randomRange(50, 200f);
     }
 
     @Override
@@ -32,4 +28,10 @@ public class LargeShip extends Ship implements EnemyShip {
                 elapsedTime * random
         );
     }
+
+    @Override
+    public int getDamage() {
+        return 30;
+    }
+
 }

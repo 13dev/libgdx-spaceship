@@ -11,11 +11,6 @@ public class MediumShip extends Ship implements EnemyShip {
     }
 
     @Override
-    public float baseAttack() {
-        return 0;
-    }
-
-    @Override
     public void render(SpriteBatch batch) {
 
         batch.draw(
@@ -26,5 +21,10 @@ public class MediumShip extends Ship implements EnemyShip {
                 1f, 1f,
                 -180f
         );
+    }
+
+    @Override
+    public int getDamage() {
+        return 20;
     }
 }

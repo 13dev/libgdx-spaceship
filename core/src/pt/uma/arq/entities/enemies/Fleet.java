@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import pt.uma.arq.entities.Laser;
 import pt.uma.arq.entities.core.Ship;
+import pt.uma.arq.entities.core.Utils;
 import pt.uma.arq.entities.enemies.EnemyShip.EnemyShipType;
 import pt.uma.arq.game.CollisionHandler;
 import pt.uma.arq.managers.LaserManager;
@@ -71,11 +72,9 @@ public class Fleet {
     }
 
     public void checkCollisions() {
-        LaserManager.lasers.forEach(laser ->
-                ships.forEach(ship ->
-                        CollisionHandler.laserAndEnemyShip(laser, (Ship) ship)
-                )
-        );
+        LaserManager.lasers.forEach(laser -> {
+            ships.forEach(ship -> CollisionHandler.laserAndEnemyShip(laser, ship));
+        });
 
 //       CollisionManager.CheckCollisionFunction<Laser, Ship> laserAndShipLambda = (laser, ship) -> {
 //            if(!laser.isRemovable()) {
@@ -92,20 +91,33 @@ public class Fleet {
 
     }
 
-    public void render(SpriteBatch batch) {
+    public void update() {
         elepsedTime += Gdx.graphics.getDeltaTime();
         checkCollisions();
+        shootRandomShip();
+        cleanEnemiesShip();
+    }
 
-        if(elepsedTime >= enemyShootInterval) {
-            Ship ship = (Ship) ships.get(
-                    (int) (Math.random() * ships.size())
+    public void render(SpriteBatch batch) {
+        update();
+        ships.forEach(ship -> ship.render(batch));
+    }
+
+    public void shootRandomShip() {
+        if (elepsedTime >= enemyShootInterval && !ships.isEmpty()) {
+            EnemyShip ship = ships.get(
+                    Utils.randomRange(0, ships.size())
             );
-            ship.fire(Laser.LaserOwnerType.ENEMY);
+            float damage = ship.getDamage();
 
+            ((Ship) ship).fire(Laser.LaserOwnerType.ENEMY, damage);
             elepsedTime = 0;
         }
+    }
 
-        ships.forEach(ship -> ship.render(batch));
-
+    public void cleanEnemiesShip() {
+        if (!ships.isEmpty()) {
+            ships.removeIf(EnemyShip::isRemovable);
+        }
     }
 }

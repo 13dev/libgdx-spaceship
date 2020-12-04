@@ -7,12 +7,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import pt.uma.arq.entities.core.GameObject;
+import pt.uma.arq.entities.core.Ship;
+import pt.uma.arq.entities.enemies.EnemyShip;
 import pt.uma.arq.managers.TextureAtlasManager;
 
 public class Laser extends GameObject {
+
     public enum LaserOwnerType {
         PLAYER,
-        ENEMY
+        ENEMY,
     }
 
     public static final int SPEED = 20;
@@ -23,18 +26,19 @@ public class Laser extends GameObject {
     private final Animation<TextureRegion> animation;
     private float elapsedTime;
     private boolean removable;
-    private LaserOwnerType owner;
+    private LaserOwnerType ownerType;
+    private float damage;
 
     public Laser(Vector2 position) {
         super(position, WIDTH, HEIGHT);
         animation = new Animation<TextureRegion>(.1f, TextureAtlasManager.getRegions("laserRed"), Animation.PlayMode.NORMAL);
         removable = false;
-        owner = LaserOwnerType.PLAYER;
+        ownerType = LaserOwnerType.PLAYER;
     }
 
     public void render(SpriteBatch batch) {
         elapsedTime += Gdx.graphics.getDeltaTime();
-        if(!isRemovable()) {
+        if (!isRemovable()) {
             batch.draw(animation.getKeyFrame(elapsedTime, false), position.x, position.y, WIDTH, HEIGHT);
         }
 
@@ -42,7 +46,7 @@ public class Laser extends GameObject {
 
     public void update() {
 
-        switch (owner) {
+        switch (ownerType) {
             case ENEMY -> position.y -= SPEED * elapsedTime;
             case PLAYER -> position.y += SPEED * elapsedTime;
         }
@@ -54,7 +58,7 @@ public class Laser extends GameObject {
             removable = true;
         }
 
-        if(position.y < 0) {
+        if (position.y < 0) {
             removable = true;
         }
     }
@@ -67,11 +71,15 @@ public class Laser extends GameObject {
         this.removable = removable;
     }
 
-    public void setOwner(LaserOwnerType owner) {
-        this.owner = owner;
+    public void setOwnerType(LaserOwnerType ownerType) {
+        this.ownerType = ownerType;
     }
 
-    public boolean isOwner(LaserOwnerType type) {
-        return owner == type;
+    public void setDamage(float damage) {
+        this.damage = damage;
+    }
+
+    public float getDamage() {
+        return this.damage;
     }
 }

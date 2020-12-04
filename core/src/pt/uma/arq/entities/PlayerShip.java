@@ -7,8 +7,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import pt.uma.arq.entities.core.Ship;
+import pt.uma.arq.entities.core.Utils;
+import pt.uma.arq.game.CollisionHandler;
 import pt.uma.arq.game.Game;
 import pt.uma.arq.managers.AudioManager;
+import pt.uma.arq.managers.LaserManager;
 import pt.uma.arq.managers.TextureAtlasManager;
 
 public class PlayerShip extends Ship {
@@ -20,20 +23,15 @@ public class PlayerShip extends Ship {
     private float shootTime = 0f;
     private final Animation fireEffect;
     public static int score;
+    public static int life;
 
     public PlayerShip(float x, float y, AudioManager audioManager) {
         super(new Vector2(x, y), SHIP_WIDTH, SHIP_HEIGHT);
         this.audioManager = audioManager;
         score = 0;
+        life = 100;
         fireEffect = new Animation<TextureRegion>(0.090f, TextureAtlasManager.getRegions("fire"), Animation.PlayMode.LOOP);
     }
-
-    @Override
-    public float baseAttack() {
-        return PLAYER_BASE_ATTACK;
-    }
-
-
 
     @Override
     public void render(SpriteBatch batch) {
@@ -48,29 +46,30 @@ public class PlayerShip extends Ship {
 
     public void update() {
         handleInput();
+        checkCollisions();
     }
 
     public void handleInput() {
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             position.x += SHIP_SPEED * Gdx.graphics.getDeltaTime();
 
-            if(position.x + SHIP_WIDTH > Game.WINDOW_WIDTH) {
+            if (position.x + SHIP_WIDTH > Game.WINDOW_WIDTH) {
                 position.x = 0;
             }
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             position.x -= SHIP_SPEED * Gdx.graphics.getDeltaTime();
 
-            if(position.x < 0f) {
+            if (position.x < 0f) {
                 position.x = Game.WINDOW_WIDTH - SHIP_WIDTH;
             }
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && shootTime >= SHOOT_WAIT_TIME) {
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && shootTime >= SHOOT_WAIT_TIME) {
             shootTime = 0;
             fire(Laser.LaserOwnerType.PLAYER);
-            audioManager.play("shoot", (float)(Math.random() * 3) + 1f);
+            audioManager.play("shoot", Utils.randomRange(0.5f, 3f));
         }
     }
 
@@ -80,5 +79,9 @@ public class PlayerShip extends Ship {
 
     public void incrementScore(int score) {
         this.score += score;
+    }
+
+    public void checkCollisions() {
+        LaserManager.lasers.forEach(laser -> CollisionHandler.laserAndPlayerShip(laser, this));
     }
 }

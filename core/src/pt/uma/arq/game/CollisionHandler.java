@@ -3,23 +3,30 @@ package pt.uma.arq.game;
 import com.badlogic.gdx.math.Vector2;
 import pt.uma.arq.entities.Explosion;
 import pt.uma.arq.entities.Laser;
+import pt.uma.arq.entities.PlayerShip;
 import pt.uma.arq.entities.core.Ship;
+import pt.uma.arq.entities.enemies.EnemyShip;
 import pt.uma.arq.managers.ExplosionManager;
 
 public class CollisionHandler {
 
-    public static void laserAndEnemyShip(Laser laser, Ship ship)
+    public static void laserAndEnemyShip(Laser laser, EnemyShip ship)
     {
-        if (ship.isCollidedWith(laser.getBoundingBox()) && !laser.isRemovable() && laser.isOwner(Laser.LaserOwnerType.PLAYER)) {
+        if (ship.isCollidedWith(laser.getBoundingBox()) && !laser.isRemovable()) {
+            PlayerShip.score++;
+            laser.setRemovable(true);
+            ship.setRemovable(true);
+
+            ExplosionManager.newMiddleExplosion(ship);
+        }
+    }
+
+    public static void laserAndPlayerShip(Laser laser, PlayerShip ship) {
+        if (ship.isCollidedWith(laser.getBoundingBox()) && !laser.isRemovable()) {
+            PlayerShip.life -= laser.getDamage();
             laser.setRemovable(true);
 
-            Vector2 explosionPosition = ship.getBoundingBox().getCenter(new Vector2());
-            explosionPosition.x -= Explosion.WIDTH / 2;
-            explosionPosition.y -= Explosion.HEIGHT / 2;
-
-            ExplosionManager.explosions.add(
-                    new Explosion(explosionPosition)
-            );
+            ExplosionManager.newMiddleExplosion(ship);
         }
     }
 

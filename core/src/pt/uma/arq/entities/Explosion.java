@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import pt.uma.arq.entities.core.GameObject;
+import pt.uma.arq.entities.core.Utils;
 import pt.uma.arq.managers.TextureAtlasManager;
 
 public class Explosion extends GameObject {
@@ -33,7 +34,7 @@ public class Explosion extends GameObject {
                     WIDTH / 2f, HEIGHT / 2f,
                     WIDTH, HEIGHT,
                     1f, 1f,
-                    (float) (Math.random() * 360)
+                    Utils.randomRange(0, 360)
             );
 
             return;

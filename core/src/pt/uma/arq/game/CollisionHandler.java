@@ -28,16 +28,14 @@ public class CollisionHandler {
         }
 
         if (laser.isCollidedWith(ship.getBoundingBox()) && !laser.isRemovable()) {
-            System.out.println("collision");
+            PlayerShip.life -= laser.getDamage();
+            laser.setRemovable(true);
+            ExplosionManager.newMiddleExplosion(ship);
 
             if(PlayerShip.life <= 0) {
                 GameStateHandler.setGameState(GameStateHandler.StateType.GAME_OVER);
             }
 
-            PlayerShip.life -= laser.getDamage();
-            laser.setRemovable(true);
-
-            ExplosionManager.newMiddleExplosion(ship);
         }
     }
 

@@ -24,8 +24,6 @@ public class Fleet {
     private final Vector2 position;
     public ArrayList<EnemyShip> ships;
     private static final int MARGIN = 20;
-    private TimerTask shootRandomShipTask;
-    private Timer shootRandomShipTimer;
 
     public Fleet(Vector2 position) {
         this.position = position;
@@ -33,8 +31,9 @@ public class Fleet {
         largeShipNum = 4;
         mediumShipNum = 5;
         smallShipNum = 7;
-        shootRandomShipTimer = new Timer();
-        shootRandomShipTask = new TimerTask() {
+
+        Timer shootRandomShipTimer = new Timer();
+        TimerTask shootRandomShipTask = new TimerTask() {
             @Override
             public void run() {
                 shootRandomShip();

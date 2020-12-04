@@ -22,6 +22,7 @@ public class Game extends ApplicationAdapter {
     private AudioManager audioManager;
     private UIManager uiManager;
 
+
     Fleet fleet;
 
     @Override
@@ -51,8 +52,27 @@ public class Game extends ApplicationAdapter {
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
         batch.begin();
+        switch (GameStateHandler.getGameState()) {
+            case GAME_OVER -> gameOver();
+            case WIN -> win();
+            case PLAYING -> playing();
+        }
+        batch.end();
+
+    }
+
+    private void gameOver() {
+        backgroundManager.render(batch);
+        font.draw(batch, "YOU LOSE!!", WINDOW_WIDTH / 2f - 100, WINDOW_HEIGHT / 2f);
+    }
+
+    private void win() {
+        backgroundManager.render(batch);
+        font.draw(batch, "YOU WIN!!", WINDOW_WIDTH / 2f - 100, WINDOW_HEIGHT / 2f);
+    }
+
+    private void playing() {
         playerShip.update();
         backgroundManager.render(batch);
         LaserManager.render(batch);
@@ -63,10 +83,11 @@ public class Game extends ApplicationAdapter {
 
 
         uiManager.renderNumber(batch, playerShip.getScore(), 138, WINDOW_HEIGHT - 15, 25f);
-
         font.draw(batch, "SCORE:", 30, WINDOW_HEIGHT - 20);
-        batch.end();
 
+
+        uiManager.renderNumber(batch, PlayerShip.getLife(), WINDOW_WIDTH - 100, WINDOW_HEIGHT - 15, 25f);
+        font.draw(batch, "LIFE:", WINDOW_WIDTH - 200, WINDOW_HEIGHT - 20);
 
     }
 

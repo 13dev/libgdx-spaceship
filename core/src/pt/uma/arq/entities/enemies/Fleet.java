@@ -8,6 +8,7 @@ import pt.uma.arq.entities.core.Ship;
 import pt.uma.arq.entities.core.Utils;
 import pt.uma.arq.entities.enemies.EnemyShip.EnemyShipType;
 import pt.uma.arq.game.CollisionHandler;
+import pt.uma.arq.game.GameStateHandler;
 import pt.uma.arq.managers.LaserManager;
 
 import java.util.ArrayList;
@@ -96,6 +97,10 @@ public class Fleet {
         checkCollisions();
         shootRandomShip();
         cleanEnemiesShip();
+
+        if(ships.isEmpty()) {
+            GameStateHandler.setGameState(GameStateHandler.StateType.WIN);
+        }
     }
 
     public void render(SpriteBatch batch) {
@@ -108,9 +113,8 @@ public class Fleet {
             EnemyShip ship = ships.get(
                     Utils.randomRange(0, ships.size())
             );
-            float damage = ship.getDamage();
 
-            ((Ship) ship).fire(Laser.LaserOwnerType.ENEMY, damage);
+            ((Ship) ship).fire(Laser.LaserOwnerType.ENEMY, ship.getDamage());
             elepsedTime = 0;
         }
     }

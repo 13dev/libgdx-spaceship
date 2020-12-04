@@ -82,4 +82,8 @@ public class Laser extends GameObject {
     public float getDamage() {
         return this.damage;
     }
+
+    public boolean getOwnerType(LaserOwnerType type) {
+        return type == ownerType;
+    }
 }

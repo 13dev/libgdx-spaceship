@@ -20,20 +20,15 @@ public abstract class Ship extends GameObject implements Collidable, Removable {
         removable = false;
     }
 
+    public void fire(Laser.LaserOwnerType type) {
+        LaserManager.lasers.add(
+                LaserManager.newLaser(this, type)
+        );
+    }
+
     public void fire(Laser.LaserOwnerType type, float damage) {
-
-        //offest bullet on y axis
-        float positionY = position.y;
-        switch (type) {
-            case ENEMY -> positionY -= getHeight() - 5;
-            case PLAYER -> positionY += getHeight() - 5;
-        }
-
-        Vector2 laserPosition = new Vector2(position.x + (getWidth() / 2) - 4, positionY);
-        Laser laser = new Laser(laserPosition);
-        laser.setOwnerType(type);
+        Laser laser = LaserManager.newLaser(this, type);
         laser.setDamage(damage);
-
         LaserManager.lasers.add(laser);
     }
 

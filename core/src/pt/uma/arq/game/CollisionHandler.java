@@ -1,17 +1,18 @@
 package pt.uma.arq.game;
 
-import com.badlogic.gdx.math.Vector2;
-import pt.uma.arq.entities.Explosion;
 import pt.uma.arq.entities.Laser;
 import pt.uma.arq.entities.PlayerShip;
-import pt.uma.arq.entities.core.Ship;
 import pt.uma.arq.entities.enemies.EnemyShip;
 import pt.uma.arq.managers.ExplosionManager;
 
 public class CollisionHandler {
 
-    public static void laserAndEnemyShip(Laser laser, EnemyShip ship)
-    {
+    public static void laserAndEnemyShip(Laser laser, EnemyShip ship) {
+        //Prevent laser colid with self ship
+        if(!laser.getOwnerType(Laser.LaserOwnerType.PLAYER)) {
+            return;
+        }
+
         if (ship.isCollidedWith(laser.getBoundingBox()) && !laser.isRemovable()) {
             PlayerShip.score++;
             laser.setRemovable(true);
@@ -22,7 +23,17 @@ public class CollisionHandler {
     }
 
     public static void laserAndPlayerShip(Laser laser, PlayerShip ship) {
-        if (ship.isCollidedWith(laser.getBoundingBox()) && !laser.isRemovable()) {
+        if(!laser.getOwnerType(Laser.LaserOwnerType.ENEMY)) {
+            return;
+        }
+
+        if (laser.isCollidedWith(ship.getBoundingBox()) && !laser.isRemovable()) {
+            System.out.println("collision");
+
+            if(PlayerShip.life <= 0) {
+                GameStateHandler.setGameState(GameStateHandler.StateType.GAME_OVER);
+            }
+
             PlayerShip.life -= laser.getDamage();
             laser.setRemovable(true);
 

@@ -52,7 +52,7 @@ public class PlayerShip extends Ship {
     public void handleInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             position.x += SHIP_SPEED * Gdx.graphics.getDeltaTime();
-
+            setBoundingBoxX(position.x);
             if (position.x + SHIP_WIDTH > Game.WINDOW_WIDTH) {
                 position.x = 0;
             }
@@ -60,6 +60,7 @@ public class PlayerShip extends Ship {
 
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             position.x -= SHIP_SPEED * Gdx.graphics.getDeltaTime();
+            setBoundingBoxX(position.x);
 
             if (position.x < 0f) {
                 position.x = Game.WINDOW_WIDTH - SHIP_WIDTH;
@@ -77,11 +78,16 @@ public class PlayerShip extends Ship {
         return score;
     }
 
-    public void incrementScore(int score) {
-        this.score += score;
-    }
-
     public void checkCollisions() {
         LaserManager.lasers.forEach(laser -> CollisionHandler.laserAndPlayerShip(laser, this));
     }
+
+    public static int getLife() {
+        return life;
+    }
+
+    public void setBoundingBoxX(float x) {
+        this.boundingBox.x = x;
+    }
+
 }

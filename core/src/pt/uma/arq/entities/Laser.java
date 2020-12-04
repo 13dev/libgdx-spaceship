@@ -15,7 +15,7 @@ public class Laser extends GameObject {
         ENEMY
     }
 
-    public static final int SPEED = 10;
+    public static final int SPEED = 20;
     public static final float DEFAULT_Y = 50;
     public static final float WIDTH = 10f;
     public static final float HEIGHT = 50f;

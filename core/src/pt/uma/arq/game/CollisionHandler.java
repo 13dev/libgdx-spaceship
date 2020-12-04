@@ -1,5 +1,6 @@
 package pt.uma.arq.game;
 
+import com.badlogic.gdx.math.Vector2;
 import pt.uma.arq.entities.Explosion;
 import pt.uma.arq.entities.Laser;
 import pt.uma.arq.entities.core.Ship;
@@ -12,8 +13,12 @@ public class CollisionHandler {
         if (ship.isCollidedWith(laser.getBoundingBox()) && !laser.isRemovable() && laser.isOwner(Laser.LaserOwnerType.PLAYER)) {
             laser.setRemovable(true);
 
+            Vector2 explosionPosition = ship.getBoundingBox().getCenter(new Vector2());
+            explosionPosition.x -= Explosion.WIDTH / 2;
+            explosionPosition.y -= Explosion.HEIGHT / 2;
+
             ExplosionManager.explosions.add(
-                    new Explosion(laser.getPosition())
+                    new Explosion(explosionPosition)
             );
         }
     }

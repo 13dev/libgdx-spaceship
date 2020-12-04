@@ -10,8 +10,8 @@ import pt.uma.arq.entities.core.GameObject;
 import pt.uma.arq.managers.TextureAtlasManager;
 
 public class Explosion extends GameObject {
-    private final static float WIDTH = 30f;
-    private final static float HEIGHT = 30f;
+    public final static float WIDTH = 50f;
+    public final static float HEIGHT = 50f;
     public boolean removable;
 
     private final Animation<TextureRegion> animation;

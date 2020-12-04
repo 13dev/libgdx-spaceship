@@ -18,7 +18,7 @@ public class BackgroundManager {
     }
 
     public void render(SpriteBatch batch) {
-        sourceY = ((sourceY + 2) % texture.getHeight());
+        sourceY = (sourceY + 2) % texture.getHeight();
         batch.draw(texture, 0, 0, 0, -sourceY, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
     }
 

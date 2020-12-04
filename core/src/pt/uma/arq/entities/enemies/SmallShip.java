@@ -1,6 +1,8 @@
 package pt.uma.arq.entities.enemies;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import pt.uma.arq.entities.core.Ship;
 import pt.uma.arq.managers.TextureAtlasManager;
@@ -9,9 +11,10 @@ public class SmallShip extends Ship implements EnemyShip {
 
     public final static float WIDTH = SHIP_WIDTH / 1.3f;
     public final static float HEIGHT = SHIP_HEIGHT / 1.3f;
-
+//    private ShapeRenderer shapeRenderer;
     public SmallShip(Vector2 position) {
         super(position, WIDTH, HEIGHT);
+//        shapeRenderer = new ShapeRenderer();
     }
 
     @Override

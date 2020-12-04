@@ -23,7 +23,6 @@ public class Fleet {
 
     private final Vector2 position;
     public ArrayList<EnemyShip> ships;
-    private static final int MARGIN = 20;
 
     public Fleet(Vector2 position) {
         this.position = position;

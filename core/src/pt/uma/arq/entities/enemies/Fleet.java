@@ -12,6 +12,8 @@ import pt.uma.arq.game.GameStateHandler;
 import pt.uma.arq.managers.LaserManager;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Fleet {
 
@@ -22,8 +24,8 @@ public class Fleet {
     private final Vector2 position;
     public ArrayList<EnemyShip> ships;
     private static final int MARGIN = 20;
-    private float elepsedTime;
-    private float enemyShootInterval;
+    private TimerTask shootRandomShipTask;
+    private Timer shootRandomShipTimer;
 
     public Fleet(Vector2 position) {
         this.position = position;
@@ -31,8 +33,15 @@ public class Fleet {
         largeShipNum = 4;
         mediumShipNum = 5;
         smallShipNum = 7;
-        elepsedTime = 0;
-        enemyShootInterval = 2f;
+        shootRandomShipTimer = new Timer();
+        shootRandomShipTask = new TimerTask() {
+            @Override
+            public void run() {
+                shootRandomShip();
+            }
+        };
+
+        shootRandomShipTimer.schedule(shootRandomShipTask, 2000, 2000);
     }
 
 
@@ -93,11 +102,8 @@ public class Fleet {
     }
 
     public void update() {
-        elepsedTime += Gdx.graphics.getDeltaTime();
         checkCollisions();
-        shootRandomShip();
         cleanEnemiesShip();
-
         if(ships.isEmpty()) {
             GameStateHandler.setGameState(GameStateHandler.StateType.WIN);
         }
@@ -109,13 +115,12 @@ public class Fleet {
     }
 
     public void shootRandomShip() {
-        if (elepsedTime >= enemyShootInterval && !ships.isEmpty()) {
+        if (!ships.isEmpty()) {
             EnemyShip ship = ships.get(
                     Utils.randomRange(0, ships.size())
             );
 
             ((Ship) ship).fire(Laser.LaserOwnerType.ENEMY, ship.getDamage());
-            elepsedTime = 0;
         }
     }
 
